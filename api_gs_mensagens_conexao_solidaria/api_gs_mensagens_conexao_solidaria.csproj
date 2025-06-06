@@ -10,6 +10,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Content Remove="wwwroot\css\**\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="wwwroot\css\site.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
