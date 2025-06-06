@@ -1,14 +1,13 @@
-
 # 📡 API - Conexão Solidária (Mensagens de Emergência)
 
-**Conexão Solidária** é uma plataforma de comunicação offline que utiliza redes mesh com Bluetooth Low Energy (BLE) para permitir a troca de mensagens em cenários de desastre, mesmo sem acesso à internet ou rede móvel.
+**Conexão Solidária** é uma plataforma de comunicação offline que utiliza redes mesh com Bluetooth Low Energy (BLE) para permitir a troca de mensagens em cenários de desastre, mesmo sem internet ou rede móvel.
 
 Cada celular com o app instalado age como um nó na rede, retransmitindo mensagens entre dispositivos próximos até que uma conexão com a internet seja encontrada para sincronização com a central.  
 Essa abordagem resiliente mantém a comunicação comunitária ativa mesmo sob blackout total.
 
 ---
 
-## 🧩 Diagrama Entidade-Relacionamento (1:N)
+## 🗂️ Estrutura de Entidades (Diagrama ER 1:N)
 
 ```
 Usuario
@@ -36,53 +35,61 @@ Mensagem
 ## 🚀 Tecnologias Utilizadas
 
 - ✅ ASP.NET Core 8.0
-- ✅ Razor Pages + TagHelpers
-- ✅ Entity Framework Core 8 (com Migrations)
+- ✅ Entity Framework Core 9 (com Migrations)
 - ✅ Banco de Dados Oracle (Oracle.EntityFrameworkCore)
 - ✅ Swagger (via Swashbuckle)
-- ✅ Docker (Azure-ready)
-- ✅ Visual Studio 2022
+- ✅ Visual Studio 2022 ou Terminal com .NET SDK 9.0+
 
 ---
 
-## 🛠 Como executar localmente
+## 🛠 Como Executar o Projeto Localmente
+
+### 1. Clonar o Repositório
+```bash
+git clone https://github.com/difurigo/API_Mensagens_Conexao_Solidaria.git
+cd api_gs_mensagens_conexao_solidaria
+```
+
+### 2. Restaurar Dependências
+```bash
+dotnet restore
+```
+
+### 3. Aplicar as Migrations no Banco Oracle
+> ⚠️ Certifique-se de que o `connection string` está correto no `appsettings.json`.
 
 ```bash
-# Restaurar dependências
-dotnet restore
-
-# Aplicar migration
 dotnet ef database update
+```
 
-# Rodar a API
+### 4. Rodar a API
+```bash
 dotnet run
 ```
 
-📄 Documentação Swagger:
+Após isso, acesse a documentação interativa:
 ```
 http://localhost:<PORTA>/swagger
 ```
 
 ---
 
-## 🧪 Endpoints e Exemplos de Testes
+## 🧪 Endpoints e Exemplos
 
-### 📌 POST /api/Usuario
-
+### 📌 Criar Usuário
+**POST /api/Usuario**
 ```json
 {
-  "id": "123",
+  "id": "1",
   "nome": "Maria da Silva",
   "email": "maria@email.com"
 }
 ```
 
-✅ Cria novo usuário
-
 ---
 
-### 📨 POST /api/Mensagem
-
+### 📨 Enviar Mensagem
+**POST /api/Mensagem**
 ```json
 {
   "titulo": "Alerta de enchente",
@@ -91,22 +98,19 @@ http://localhost:<PORTA>/swagger
   "localizacao": "Rua das Águas, 123",
   "ttl": 5,
   "status": "Pendente",
-  "usuarioId": "123"
+  "usuarioId": "1"
 }
 ```
 
-✅ Cria nova mensagem vinculada a um usuário existente
+---
+
+### 🔍 Listar Mensagens de um Usuário
+**GET /api/Mensagem/usuario/{usuarioId}**
 
 ---
 
-### 🔍 GET /api/Mensagem/usuario/{usuarioId}
-
-Retorna todas as mensagens de um usuário.
-
----
-
-### ✏️ PUT /api/Mensagem/{uuid}
-
+### ✏️ Atualizar Mensagem
+**PUT /api/Mensagem/{uuid}**
 ```json
 {
   "titulo": "Atualização",
@@ -114,56 +118,28 @@ Retorna todas as mensagens de um usuário.
   "prioridade": "Alta",
   "localizacao": "Rua Central, 999",
   "status": "Pendente",
-  "usuarioId": "123"
+  "usuarioId": "1"
 }
 ```
 
-✅ Atualiza a mensagem com base no UUID
+---
+
+### ❌ Remover Mensagem por UUID
+**DELETE /api/Mensagem/{uuid}**
 
 ---
 
-### ❌ DELETE /api/Mensagem/{uuid}
-
-Remove uma mensagem específica por UUID.
-
----
-
-### ❌ DELETE /api/Mensagem/usuario/{usuarioId}
-
-Remove **todas** as mensagens do usuário.
+### ❌ Remover Todas as Mensagens de um Usuário
+**DELETE /api/Mensagem/usuario/{usuarioId}**
 
 ---
 
-## 🧾 Consulta rápida no Oracle SQL
+## 🧾 Consulta Direta via Oracle SQL
 
 ```sql
 SELECT * FROM MENSAGENS;
 SELECT * FROM USUARIOS;
 ```
-
----
-
-## 🐳 Deploy com Docker
-
-```bash
-# Build da imagem
-docker build -t conexao-solidaria-api .
-
-# Executar localmente
-docker run -p 5000:80 conexao-solidaria-api
-```
-
-> O projeto está pronto para ser deployado no Azure com ajustes simples no `Dockerfile`.
-
----
-
-## 📹 Vídeos obrigatórios para entrega
-
-- 🎥 **Vídeo de Demonstração (até 8 min):**  
-  Mostrar os principais endpoints funcionando via Swagger + código
-
-- 🎙️ **Vídeo Pitch (até 3 min):**  
-  Explicar a ideia, o problema resolvido e como o sistema funciona
 
 ---
 

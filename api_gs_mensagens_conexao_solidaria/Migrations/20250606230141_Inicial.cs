@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api_gs_mensagens_conexao_solidaria.Migrations
 {
     /// <inheritdoc />
-    public partial class CriandoTabelasComRelacionamentoCorrigido : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "USUARIOS",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Nome = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    ID = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
+                    NOME = table.Column<string>(type: "NVARCHAR2(200)", maxLength: 200, nullable: false),
+                    EMAIL = table.Column<string>(type: "NVARCHAR2(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.PrimaryKey("PK_USUARIOS", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,10 +43,10 @@ namespace api_gs_mensagens_conexao_solidaria.Migrations
                 {
                     table.PrimaryKey("PK_MENSAGENS", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_MENSAGENS_Usuarios_USUARIO_ID",
+                        name: "FK_MENSAGENS_USUARIOS_USUARIO_ID",
                         column: x => x.USUARIO_ID,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
+                        principalTable: "USUARIOS",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -63,7 +63,7 @@ namespace api_gs_mensagens_conexao_solidaria.Migrations
                 name: "MENSAGENS");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "USUARIOS");
         }
     }
 }

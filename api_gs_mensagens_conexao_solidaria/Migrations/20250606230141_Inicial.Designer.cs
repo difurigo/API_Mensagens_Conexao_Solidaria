@@ -12,8 +12,8 @@ using api_gs_mensagens_conexao_solidaria.Infrastructure.Data;
 namespace api_gs_mensagens_conexao_solidaria.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250603222134_CriandoTabelasComRelacionamentoCorrigido")]
-    partial class CriandoTabelasComRelacionamentoCorrigido
+    [Migration("20250606230141_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,19 +91,25 @@ namespace api_gs_mensagens_conexao_solidaria.Migrations
             modelBuilder.Entity("api_gs_mensagens_conexao_solidaria.Domain.Entities.Usuario", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("NVARCHAR2(450)");
+                        .HasMaxLength(100)
+                        .HasColumnType("NVARCHAR2(100)")
+                        .HasColumnName("ID");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasMaxLength(200)
+                        .HasColumnType("NVARCHAR2(200)")
+                        .HasColumnName("EMAIL");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasMaxLength(200)
+                        .HasColumnType("NVARCHAR2(200)")
+                        .HasColumnName("NOME");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("USUARIOS", (string)null);
                 });
 
             modelBuilder.Entity("api_gs_mensagens_conexao_solidaria.Domain.Entities.Mensagem", b =>
